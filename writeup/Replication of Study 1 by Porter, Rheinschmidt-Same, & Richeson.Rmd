@@ -1,0 +1,106 @@
+---
+title: "Replication of Study 1 by Porter, Rheinschmidt-Same, & Richeson (2016, Psychological Science)"
+author: "Melissa Mesinas (mmesinas@stanford.edu)"
+date: "`r format(Sys.time(), 'October 07, 2018')`"
+output:
+  html_document:
+    toc: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+---
+
+<!-- Replication reports should all use this template to standardize reporting across projects.  These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
+
+##Introduction   
+
+One of my research interests entails the language use multilingual speaking communities use to communicate through their intergenerational teaching. I use ethnographic methods to collect my data, however, I find that the proposed study for replication brings a new perspective I can include in my research. The participants I conduct my research with are multilingual and speak a number of combinations that include Zapotec (an Indigenous language native to Mexico), Spanish, and English. One of my research interests includes the language preference my participants use among peers their age and adults who are experienced members in the culture-specific learning setting. I was intrigued by the findings of this article because the researchers examine how implicit messages vary in the degree to which the communicator’s language is concrete rather than abstract. Hence, research has demonstrated that subtle linguistic variations can have a substantial effect on what is conveyed about a target (Porter, Rheinschmidt-Same, & Richeson, 2016). As I design my dissertation, this study has helped me realize the importance of potential favorable or unfavorable LIB (defined in the next section) within the intragroup setting of my study. 
+
+The procedures of the study required participants to complete all tasks on a computer as they were asked to read a passage and then respond to questions. The beginning of the passage was the same across all conditions: “Imagine that someone is communicating with you about a man named Peter. Peter is American, has an interest in politics, and voted for Barack Obama.” This information was intended to subtly imply that Peter (the target) was a Democrat. The stimuli are introduced in the second part of the passage as participants were given the communicator’s description of Peter’s helpful and rude behaviors. In the favorable linguistic intergroup bias (favorable-LIB) condition, which is the use of abstract language to describe in-group members’ desirable behaviors and concrete language to describe their undesirable behaviors, Peter’s helping behavior was described abstractly (such as “Peter is someone who stands up for the interests of others”). In the unfavorable LIB condition, Peter’s helping behavior is described more concretely (such as “Peter helped another person, even if it did not benefit him”) and his rude behavior was described more abstractly (such as “Peter is cold.”). 
+
+Participants were asked to assess the likelihood that the communicator was a Republican or Democrat after reading the passage. Participants assessed their ratings on a 7-point scale, anchored by 1, definitely a Republican, and 7, definitely a Democrat. Next, in order to check the effectiveness of the LIB manipulation, the authors asked participants to estimate the percentage of future situation in which Peter was likely to be helpful, along with the percentage of future situations in which he was likely to be rude. To conclude, participants completed a demographic questionnaire that asked about their gender, political-party affiliation, and the degree to which they endorsed liberal and conservative beliefs, on a 7-point scale ranging from 1, strongly disagree, to 7, strongly agree. I can foresee finding a sample size to the original study (n = 88) that is similar to be challenging. Additionally, given that the complete materials were not provided in the article, the length of the entire procedure is unknown and may be a challenge as well.
+
+Link to the repository: https://github.com/mmesinas/porter2016
+
+Original link to paper: http://journals.sagepub.com.stanford.idm.oclc.org/doi/pdf/10.1177/0956797615612202
+
+##Methods
+
+###Power Analysis
+
+Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
+
+###Planned Sample
+
+Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any.
+
+###Materials
+
+All materials - can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+
+###Procedure	
+
+Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+
+###Analysis Plan
+
+Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.  
+
+**Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do.
+
+###Differences from Original Study
+
+Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.
+
+### Methods Addendum (Post Data Collection)
+
+You can comment this section out prior to final report with data collection.
+
+#### Actual Sample
+  Sample size, demographics, data exclusions based on rules spelled out in analysis plan
+
+#### Differences from pre-data collection methods plan
+  Any differences from what was described as the original plan, or “none”.
+
+
+##Results
+
+
+### Data preparation
+
+Data preparation following the analysis plan.
+	
+```{r include=F}
+###Data Preparation
+
+####Load Relevant Libraries and Functions
+
+####Import data
+
+#### Data exclusion / filtering
+
+#### Prepare data for analysis - create columns etc.
+```
+
+### Confirmatory analysis
+
+The analyses as specified in the analysis plan.  
+
+*Side-by-side graph with original graph is ideal here*
+
+###Exploratory analyses
+
+Any follow-up analyses desired (not required).  
+
+## Discussion
+
+### Summary of Replication Attempt
+
+Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+
+### Commentary
+
+Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
