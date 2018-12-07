@@ -1,7 +1,7 @@
 ---
-title: "Replication of Study 1 by Porter, Rheinschmidt-Same, & Richeson (2016, Psychological Science)"
+title: "Replication of Study 1A by Porter, Rheinschmidt-Same, & Richeson (2016, Psychological Science)"
 author: "Melissa Mesinas (mmesinas@stanford.edu)"
-date: "`r format(Sys.time(), 'October 21, 2018')`"
+date: "`r format(Sys.time(), 'December 5, 2018')`"
 output:
   html_document:
     toc: yes
@@ -23,7 +23,7 @@ The procedures of the study required participants to complete all tasks on a com
 
 Participants were asked to assess the likelihood that the communicator was a Republican or Democrat after reading the passage. Participants assessed their ratings on a 7-point scale, anchored by 1, definitely a Republican, and 7, definitely a Democrat. Next, in order to check the effectiveness of the LIB manipulation, the authors asked participants to estimate the percentage of future situation in which Peter was likely to be helpful, along with the percentage of future situations in which he was likely to be rude. To conclude, participants completed a demographic questionnaire that asked about their gender, political-party affiliation, and the degree to which they endorsed liberal and conservative beliefs, on a 7-point scale ranging from 1, strongly disagree, to 7, strongly agree. I can foresee finding a sample size to the original study (n = 88) that is similar to be challenging. Additionally, given that the complete materials were not provided in the article, the length of the entire procedure is unknown and may be a challenge as well.
 
-Link to the repository: https://github.com/mmesinas/porter2016
+Link to the repository: https://github.com/psych251/porter2016
 
 Original link to paper: http://journals.sagepub.com.stanford.idm.oclc.org/doi/pdf/10.1177/0956797615612202
 
@@ -47,7 +47,7 @@ The Supplemental Materials can be found here: http://journals.sagepub.com.stanfo
 
 "After reading the passage, participants were asked to assess the likelihood that the communicator was either a Democrat or a Republican. Ratings were made on a 7-point scale, anchored by 1, definitely a Republican, and 7, definitely a Democrat. As a check of the effectiveness of the LIB manipulation, we asked participants to estimate the percentage of future situations in which Peter was likely to be helpful and the percentage of future situations in which he was likely to be rude (Semin & de Poot, 1997). Finally, participants completed a demographic questionnaire that asked their gender, their political-party affiliation, and the degree to which they endorsed liberal and conservative beliefs (on 7-point scales ranging from 1, strongly disagree, to 7, strongly agree)." 
 
-The survey can be accesed via this link: https://gse.qualtrics.com/jfe/form/SV_0Ca9vv5SVM4U8sd
+The survey can be accesed via this link: https://gse.qualtrics.com/jfe/form/SV_01fOoRD10ONZoAR
 
 ###Analysis Plan
 
@@ -82,16 +82,24 @@ To be determined.
 
 I will import the data for study 1a to familiarize myself with the organization of the dataset. I will make sure to understand how each variable was labeled and inputted, especially for the LIB and ULIB conditions. 
 
-```{r include=F}
-###Data Preparation 
+```{r}
+####Data Preparation 
+
 
 ####Load Relevant Libraries and Functions
+library(tidyverse)
 
 ####Import data
-
+setwd("/Users/melissamesinas/Desktop/PSYCH_251")
+getwd()
+raw_pilotB <- read_csv('data/Porteretal2016_pilotB.csv')
 #### Data exclusion / filtering
 
 #### Prepare data for analysis - create columns etc.
+pilotB = raw_pilotB %>%
+  mutate(Condition=ifelse(is.na(FLIB_DV), "ULIB", "FLIB"),
+         DV=ifelse(is.na(FLIB_DV), ULIB_DV, FLIB_DV))
+head(pilotB)
 ```
 
 ### Confirmatory analysis
@@ -99,37 +107,73 @@ I will import the data for study 1a to familiarize myself with the organization 
 "The primary dependent measure was participants’ inferences regarding the communicator’s political affiliation. As predicted, participants in the favorable-LIB condition were significantly more likely to believe that the communicator was a Democrat, and thus shared a party affiliation with the target, than were participants in the unfavorable-LIB condition,
 t(86) = 2.89, p = .005, d = 0.62 (Fig. 1). This difference was not moderated by participants’ self-reported political- party affiliation or ideological endorsement (ps > .18). Our findings suggested initial support for our hypothesis that individuals can infer a communicator’s social identity from his or her language, regardless of their own social identity."
 
-I ran the following code to test my pilot data: 
+The following code was used to test pilot B: 
 
-```{r eval=F}
+```{r}
 #### load libraries
 library(tidyverse)
 
 #### imprt data
-pilot1 <- read_csv("/Users/melissamesinas/Desktop/PSYCH 251/data/Porteretal2016-pilot.csv")
-
-#### clean data
-pilot1 <- pilot1[-c(1:2), ] %>%  # drops rows 1 and 2, which had meta-data
-  select(Condition, Q4) %>%
-  drop_na() # pilot1$Q4[is.na(pilot1$Q4)]
-
-pilot1$Q4[pilot1$Q4 == "7 - Definitely Democrat"] <- "7"
-pilot1$Condition <- as.factor(pilot1$Condition)
-pilot1$Q4 <- as.numeric(pilot1$Q4)
+setwd("/Users/melissamesinas/Desktop/PSYCH_251/data")
+pilotB<-read_csv('Porteretal2016_pilotB.csv')
+head(pilotB)
 
 #### analysis
-t.test(Q4 ~ Condition, data = pilot1)
+t.test(DV ~ Condition, data = pilotB)
 
-#### visualize
-ggplot(pilot1, aes(Condition, Q4)) +
-  geom_boxplot()
+#code to calculate means grouped by condition 
+summarized_pilotB <- pilotB%>%
+ group_by(Condition) %>%
+  summarize(mean = mean(DV), 
+            n = n(), 
+            se = sd(DV) / sqrt(n)) %>%
+  mutate(lower.ci.DV = mean - qt(1 - (0.05 / 2), n - 1) * se,
+      upper.ci.DV = mean + qt(1 - (0.05 / 2), n - 1) * se)
+
+#bar graph
+g <- ggplot(summarized_pilotB, aes(x=Condition, y=mean)) 
+g + geom_bar(stat="identity") +
+  geom_errorbar(aes(ymin=lower.ci.DV, ymax=upper.ci.DV)) +
+  scale_x_discrete(breaks=c("FLIB", "ULIB"), labels=c("Favorable", "Unfavorable"))
+
 ```
 
-The results from the pilot data are t(2.8824) = -3.2733, p = 0.04942. 
+The results from the pilot B data are t(2.28) = 1.07, p = 0.38
+
+Below is the original graph from Study 1A: 
+
+![Graph](/Users/melissamesinas/Desktop/PSYCH_251/Study1A.png)
+
 
 ###Exploratory analyses
+```{r}
+#code for manipulation check - helpful
+t.test(future_help ~ Condition, data = pilotB)
 
-Any follow-up analyses desired (not required).  
+manipulation_check_help_pilotB <- pilotB%>%
+ group_by(Condition) %>%
+  summarize(mean = mean(future_help), 
+            n = n(), 
+            se = sd(future_help) / sqrt(n)) %>%
+  mutate(lower.ci.future_help = mean - qt(1 - (0.05 / 2), n - 1) * se,
+      upper.ci.future_help = mean + qt(1 - (0.05 / 2), n - 1) * se)
+```
+
+```{r}
+#code for manipulation check - rude 
+t.test(future_rude ~ Condition, data = pilotB)
+
+manipulation_check_rude_pilotB <- pilotB%>%
+ group_by(Condition) %>%
+  summarize(mean = mean(future_rude), 
+            n = n(), 
+            se = sd(future_rude) / sqrt(n)) %>%
+  mutate(lower.ci.future_rude = mean - qt(1 - (0.05 / 2), n - 1) * se,
+      upper.ci.future_rude = mean + qt(1 - (0.05 / 2), n - 1) * se)
+
+```
+
+As expected, participants in the favorable-LIB condition believed that Peter was more likely to be helpful in the future (M = 71.67%, SD =11.67%) than did participants in the unfavorable-LIB condition (M = 39%, SD = 12.08%), t(5.45) = 1.94, p = 0.10. Similarly, participants in the favorable-LIB condition indicated that Peter was less likely to be rude in the future (M =28.33%, SD = 11.67%) compared with the participants in the unfavorable-LIB condition(M = 57%, SD = 10.68%), t(5) = -1.81, p = 0.12. 
 
 ## Discussion
 
