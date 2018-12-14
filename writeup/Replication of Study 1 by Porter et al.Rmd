@@ -1,7 +1,7 @@
 ---
 title: "Replication of Study 1A by Porter, Rheinschmidt-Same, & Richeson (2016, Psychological Science)"
 author: "Melissa Mesinas (mmesinas@stanford.edu)"
-date: "`r format(Sys.time(), 'December 5, 2018')`"
+date: "`r format(Sys.time(), 'December 14, 2018')`"
 output:
   html_document:
     toc: yes
@@ -27,15 +27,19 @@ Link to the repository: https://github.com/psych251/porter2016
 
 Original link to paper: http://journals.sagepub.com.stanford.idm.oclc.org/doi/pdf/10.1177/0956797615612202
 
+Preregistration link: https://osf.io/er735/ 
+
 ##Methods
 
 ###Power Analysis
 
-An original effect size was not mentioned nor a power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size. Considerations of feasibility for selecting planned sample size was discussed in the study, please see the next section for more details. 
+Considerations of feasibility for selecting planned sample size was discussed in the study, please see the next section for more details. 
+
+Using the G*Power calculator, I used the statistics provided by the authors to calculate power (t(86) = 2.89, p = .005, d = 0.62). The calculator estimated that 66 participants would be needed to run a power analysis of 80%. However, given the short duration of the survey, this replication ran the same amount of participants as in the original study, 88. 
 
 ###Planned Sample
 
-From past research in this area, the authors conservatively estimated the sample size needed to find an effect. They concluded that they needed to sample 90 participants and stopped collecting data once that number was reached. However, two participants did not complete the dependent-variable measure and the final sample size was 88. Participants were recruited from Amazon Mechanical Turk (MTurk.com). 
+From past research in this area, the authors conservatively estimated the sample size needed to find an effect. They concluded that they needed to sample 90 participants and stopped collecting data once that number was reached. However, two participants did not complete the dependent-variable measure and the final sample size was 88. Participants were recruited from Amazon Mechanical Turk (MTurk.com). They did not note the specific power analysis in their estimation of 90 participants. 
 
 ###Materials
 
@@ -51,78 +55,60 @@ The survey can be accesed via this link: https://gse.qualtrics.com/jfe/form/SV_0
 
 ###Analysis Plan
 
-The analysis plan will follow the original study's plan. I will conduct the same manipulation check that was conducted in study 1a through the calculation of raw mean ratings of Peter's (the target) future likelihood of being rude and helpful. Further, the mean rated likelihood that the communicator and target shared group membership for each condition (favorable- and unfavorable-linguistic intergroup bias). 
+The analysis plan will follow the original study's plan. A t-test will be run on the rated likelihood that the communicator and target shared group membership for each condition (favorable- and unfavorable-linguistic intergroup bias).  I will conduct the same manipulation check that was conducted in study 1a through the calculation of raw mean ratings of Peter's (the target) future likelihood of being rude and helpful by running t-tests as well. 
 
-I will calculate t-statistics, effect sizes, and p-values for these analyses. A t-test will be used because I  want to compare the means of two independent groups.  
+I will calculate t-statistics, effect sizes, and p-values for these analyses. 
 
 
 ###Differences from Original Study
 
-Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.
-To be determined. 
+The only difference in this study was the distribution of the replication sample size did not match the sample size of the original study. For instance, there were more women and less Democrats in the original study. These differences were not anticipated. 
+
 
 ### Methods Addendum (Post Data Collection)
 
-You can comment this section out prior to final report with data collection.
-To be determined. 
-
 #### Actual Sample
-  Sample size, demographics, data exclusions based on rules spelled out in analysis plan
-  To be determined. 
+The sample size of the replication study was 87.There were 32 women and 57 men who participated in this study. Participants identified in the following political party affiliation: 48% Democrat, 24% Republican, 26% Independent, and 2% Other political party. I excluded two participants because they did not provide numeric answers to the manipulation checks.   
 
 #### Differences from pre-data collection methods plan
-  Any differences from what was described as the original plan, or “none”.
-  To be determined. 
-
+  None. 
 
 ##Results
 
+For the confirmatory analysis, participants in the favorable-LIB condition were not significantly more likely to believe that the communicator was a Democrat, and thus shared a party affiliation with the target, than were participants in the unfavorable-LIB condition, t(82.92) = 0.65, p = .52, d = 0.14. The mean for the favorable-LIB condition was 5.10 and the mean for the unfavorable-LIB condition was 4.89. These findings contradict our prediction. 
 
 ### Data preparation
 
 I will import the data for study 1a to familiarize myself with the organization of the dataset. I will make sure to understand how each variable was labeled and inputted, especially for the LIB and ULIB conditions. 
 
 ```{r}
-####Data Preparation 
-
-
 ####Load Relevant Libraries and Functions
 library(tidyverse)
+library(lsr)
 
-####Import data
+####Data Preparation
 setwd("/Users/melissamesinas/Desktop/PSYCH_251")
-getwd()
-raw_pilotB <- read_csv('data/Porteretal2016_pilotB.csv')
-#### Data exclusion / filtering
+raw_final <- read_csv('Porteretal2016_final.csv')
 
 #### Prepare data for analysis - create columns etc.
-pilotB = raw_pilotB %>%
+final = raw_final %>%
   mutate(Condition=ifelse(is.na(FLIB_DV), "ULIB", "FLIB"),
          DV=ifelse(is.na(FLIB_DV), ULIB_DV, FLIB_DV))
-head(pilotB)
+
+head(final)
 ```
 
 ### Confirmatory analysis
+From the original study: "The primary dependent measure was participants’ inferences regarding the communicator’s political affiliation. As predicted, participants in the favorable-LIB condition were significantly more likely to believe that the communicator was a Democrat, and thus shared a party affiliation with the target, than were participants in the unfavorable-LIB condition, t(86) = 2.89, p = .005, d = 0.62 (Fig. 1). This difference was not moderated by participants’ self-reported political- party affiliation or ideological endorsement (ps > .18). Our findings suggested initial support for our hypothesis that individuals can infer a communicator’s social identity from his or her language, regardless of their own social identity."
 
-"The primary dependent measure was participants’ inferences regarding the communicator’s political affiliation. As predicted, participants in the favorable-LIB condition were significantly more likely to believe that the communicator was a Democrat, and thus shared a party affiliation with the target, than were participants in the unfavorable-LIB condition,
-t(86) = 2.89, p = .005, d = 0.62 (Fig. 1). This difference was not moderated by participants’ self-reported political- party affiliation or ideological endorsement (ps > .18). Our findings suggested initial support for our hypothesis that individuals can infer a communicator’s social identity from his or her language, regardless of their own social identity."
-
-The following code was used to test pilot B: 
+A t-test will be used to assess if participants thought the communicator was more likely to be a Democrat in the favorable LIB condition than the unfavorable LIB condition. 
 
 ```{r}
-#### load libraries
-library(tidyverse)
-
-#### imprt data
-setwd("/Users/melissamesinas/Desktop/PSYCH_251/data")
-pilotB<-read_csv('Porteretal2016_pilotB.csv')
-head(pilotB)
-
 #### analysis
-t.test(DV ~ Condition, data = pilotB)
+t.test(DV ~ Condition, data = final)
 
-#code to calculate means grouped by condition 
-summarized_pilotB <- pilotB%>%
+# code to calculate means grouped by condition 
+summarized_final <- final%>%
  group_by(Condition) %>%
   summarize(mean = mean(DV), 
             n = n(), 
@@ -130,15 +116,18 @@ summarized_pilotB <- pilotB%>%
   mutate(lower.ci.DV = mean - qt(1 - (0.05 / 2), n - 1) * se,
       upper.ci.DV = mean + qt(1 - (0.05 / 2), n - 1) * se)
 
+#### effect size 
+cohensD(DV ~ Condition, 
+       data = final)
+
 #bar graph
-g <- ggplot(summarized_pilotB, aes(x=Condition, y=mean)) 
+g <- ggplot(summarized_final, aes(x=Condition, y=mean)) 
 g + geom_bar(stat="identity") +
   geom_errorbar(aes(ymin=lower.ci.DV, ymax=upper.ci.DV)) +
   scale_x_discrete(breaks=c("FLIB", "ULIB"), labels=c("Favorable", "Unfavorable"))
-
 ```
 
-The results from the pilot B data are t(2.28) = 1.07, p = 0.38
+Participants in the favorable-LIB condition were not significantly more likely to believe that the communicator was a Democrat, and thus shared a party affiliation with the target, than were participants in the unfavorable-LIB condition, t(82.92) = 0.65, p = .52, d = 0.14. These findings do not support our prediction. 
 
 Below is the original graph from Study 1A: 
 
@@ -146,24 +135,33 @@ Below is the original graph from Study 1A:
 
 
 ###Exploratory analyses
+From the original study: "As expected, participants in the favorable-LIB condition believed that Peter was more likely to be helpful in the future (M = 70.29%, SD = 23.58) than did participants in the unfavorable-LIB condition (M = 57.83%, SD = 24.08), t(86) = 2.45, p = .016, d = 0.53. Similarly, participants in the favorable-LIB condition indicated that Peter was less likely to be rude in the future (M = 33.67%, SD = 25.48) compared with participants in the unfavorable-LIB condition (M = 53.93%, SD = 25.22), t(86) = 3.73, p < .001, d = 0.80."
+
+A t-test will be used to assess if participants in the favorable LIB-condition thought Peter was more likely to be helpful than participants in the unfavorable LIB condition. A second t-test will be analyzed to see if participants in the favorable LIB-condition thought Peter was less likely to be rude than participants in the unfavorable LIB condition
 ```{r}
 #code for manipulation check - helpful
-t.test(future_help ~ Condition, data = pilotB)
+t.test(future_help ~ Condition, data = final)
 
-manipulation_check_help_pilotB <- pilotB%>%
+#code to calculate means grouped by condition 
+manipulation_check_help_final <- final%>%
  group_by(Condition) %>%
   summarize(mean = mean(future_help), 
             n = n(), 
             se = sd(future_help) / sqrt(n)) %>%
   mutate(lower.ci.future_help = mean - qt(1 - (0.05 / 2), n - 1) * se,
       upper.ci.future_help = mean + qt(1 - (0.05 / 2), n - 1) * se)
+
+#### effect size 
+cohensD(future_help ~ Condition, 
+       data = final)
 ```
 
 ```{r}
 #code for manipulation check - rude 
-t.test(future_rude ~ Condition, data = pilotB)
+t.test(future_rude ~ Condition, data = final)
 
-manipulation_check_rude_pilotB <- pilotB%>%
+#code to calculate means grouped by condition 
+manipulation_check_rude_final <- final%>%
  group_by(Condition) %>%
   summarize(mean = mean(future_rude), 
             n = n(), 
@@ -171,16 +169,19 @@ manipulation_check_rude_pilotB <- pilotB%>%
   mutate(lower.ci.future_rude = mean - qt(1 - (0.05 / 2), n - 1) * se,
       upper.ci.future_rude = mean + qt(1 - (0.05 / 2), n - 1) * se)
 
+#### effect size 
+cohensD(future_rude ~ Condition, 
+       data = final)
 ```
 
-As expected, participants in the favorable-LIB condition believed that Peter was more likely to be helpful in the future (M = 71.67%, SD =11.67%) than did participants in the unfavorable-LIB condition (M = 39%, SD = 12.08%), t(5.45) = 1.94, p = 0.10. Similarly, participants in the favorable-LIB condition indicated that Peter was less likely to be rude in the future (M =28.33%, SD = 11.67%) compared with the participants in the unfavorable-LIB condition(M = 57%, SD = 10.68%), t(5) = -1.81, p = 0.12. 
+As expected, participants in the favorable-LIB condition believed that Peter was more likely to be helpful in the future (M = 62.629%, SD = 2.96%) than did participants in the unfavorable-LIB condition (M = 45.89%, SD = 3.65%), t(80.34) = 3.50, p < .001, d = 0.75 Similarly, participants in the favorable-LIB condition indicated that Peter was less likely to be rude in the future (M = 32.60%, SD = 3.30%) compared with the participants in the unfavorable-LIB condition (M = 52.49%, SD = 2.85%), t(82.25) = -4.56, p = 1.736e-05, d = 0.98.
 
 ## Discussion
 
 ### Summary of Replication Attempt
 
-Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+For the confirmatory analysis, participants in the favorable-LIB condition were not significantly more likely to believe that the communicator was a Democrat, and thus shared a party affiliation with the target, than were participants in the unfavorable-LIB condition, t(82.92) = 0.65, p = .52, d = 0.14. The mean for the favorable-LIB condition was 5.10 and the mean for the unfavorable-LIB condition was 4.89. These findings contradict our prediction as the p-value was less than .05 and the effect size was minimal at 0.14. Hence, this analysis failed to replicate the original result. 
 
 ### Commentary
 
-Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
+The exploratory analyses indicate that the manipulation checks did result as predicted, indicating that participants would view a target more favorably when favorable linguistic intergroup bias is used to communicat about them. From these results, I infer that there is reason to believe that linguistic intergroup bias can influence someone how they perceive others. However, the confirmatory analysis did not result in signifiance and failed to replicate the original findings. As mentioned earlier in the report, the sample sizes differed in its distribution of demographics, which could lead to a plausible moderator. Additionally, the change in political climate is worth considerating as a moderator as well. 
